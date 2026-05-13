@@ -1,0 +1,339 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico:wght@200;400;600&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fff0f5;
+  background-image:
+    radial-gradient(circle at 20% 20%, #ffe4f0 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, #ffd6e8 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, #fff5f8 0%, transparent 70%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Falling hearts background */
+#hearts-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart {
+  position: fixed;
+  font-size: 1.5rem;
+  top: -5vh;
+  pointer-events: none;
+  animation: fall linear forwards;
+  opacity: 0.7;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Main layout */
+.all-stuff {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0 16px 60px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #d63384;
+  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  font-family: "Crafty Girls", cursive;
+  margin-top: 50px;
+  padding: 1rem 2rem;
+  text-align: center;
+  text-shadow:
+    2px 2px 0 #ffb3d1,
+    4px 4px 0 rgba(214, 51, 132, 0.15);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.subtitle {
+  font-family: "Chewy", system-ui;
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: #e075a8;
+  text-align: center;
+  margin-bottom: 10px;
+  min-height: 1.8em;
+  transition: opacity 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.outer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  width: 100%;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: min(420px, 92vw);
+}
+
+/* Buttons */
+.btn {
+  padding: 18px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-family: "Chewy", system-ui;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+  position: relative;
+  letter-spacing: 1px;
+}
+
+.yes.btn {
+  background: linear-gradient(135deg, #ff6bae, #ff3385);
+  color: #fff;
+  box-shadow:
+    0 6px 20px rgba(255, 51, 133, 0.4),
+    0 2px 6px rgba(255, 51, 133, 0.2);
+  transform-origin: center;
+  transition:
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    font-size 0.4s ease;
+}
+
+.yes.btn:hover {
+  background: linear-gradient(135deg, #ff3385, #d6006e);
+  box-shadow:
+    0 10px 30px rgba(255, 51, 133, 0.55),
+    0 4px 10px rgba(255, 51, 133, 0.3);
+  transform: scale(1.07) translateY(-2px);
+}
+
+.yes.btn:active {
+  transform: scale(0.96);
+}
+
+.no.btn {
+  background: linear-gradient(135deg, #f7c5dc, #f0a0c8);
+  color: #c0607e;
+  box-shadow: 0 4px 12px rgba(200, 100, 140, 0.2);
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  /* No button starts smaller and we'll keep it looking "shy" */
+}
+
+/* No button is position:fixed when it starts running away on desktop */
+.no.btn.running {
+  position: fixed;
+  transition: none !important;
+  font-size: 1rem !important;
+  padding: 12px 18px;
+  opacity: 0.85;
+  z-index: 10;
+}
+
+/* No-attempts taunts */
+.no-attempts {
+  font-family: "Chewy", system-ui;
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  color: #e075a8;
+  text-align: center;
+  margin-top: 28px;
+  min-height: 2em;
+  padding: 0 20px;
+  animation: tauntIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes tauntIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* Celebration overlay */
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 200, 230, 0.6);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.celebration.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.celebration-content {
+  background: linear-gradient(145deg, #fff0f8, #ffe4f2);
+  border-radius: 30px;
+  padding: clamp(30px, 8vw, 60px) clamp(30px, 10vw, 80px);
+  text-align: center;
+  box-shadow:
+    0 20px 60px rgba(214, 51, 132, 0.3),
+    0 0 0 3px #ffb3d1;
+  transform: scale(0);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 90vw;
+}
+
+.celebration.show .celebration-content {
+  transform: scale(1);
+}
+
+.celebration-emoji {
+  font-size: clamp(3rem, 12vw, 5rem);
+  animation: heartBeat 0.8s ease infinite alternate;
+}
+
+@keyframes heartBeat {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.celebration-content h2 {
+  font-family: "Crafty Girls", cursive;
+  font-size: clamp(1.6rem, 6vw, 2.8rem);
+  color: #d63384;
+  margin: 16px 0 10px;
+  text-shadow: 2px 2px 0 #ffb3d1;
+}
+
+.celebration-content p {
+  font-family: "Chewy", system-ui;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  color: #e075a8;
+  letter-spacing: 0.5px;
+}
+
+.celebration-hearts {
+  font-size: clamp(1.5rem, 6vw, 2.4rem);
+  margin-top: 16px;
+  letter-spacing: 6px;
+  animation: floatHeartsRow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatHeartsRow {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Confetti */
+#confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  top: -20px;
+  border-radius: 2px;
+  animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg) scaleX(1);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) scaleX(-1);
+    opacity: 0;
+  }
+}
+
+/* Mobile: No button teleport flash */
+.no.btn.teleport-flash {
+  animation: teleportFlash 0.25s ease;
+}
+
+@keyframes teleportFlash {
+  0% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .outer-container {
+    margin-top: 40px;
+  }
+  .container {
+    gap: 14px;
+  }
+  .title {
+    margin-top: 36px;
+  }
+}
