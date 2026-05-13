@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Do you Love Me?</title>
-    <link rel="icon" type="image/x-icon" href="./images/heart-solid-full.svg" />
+    <link rel="icon" type="image/x-icon" href="/images/heart-solid-full.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,34 +14,96 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
+    <!-- Background falling hearts -->
     <div id="hearts-container"></div>
 
-    <div class="all-stuff">
+    <!-- Emoji trail container -->
+    <div id="trail-container"></div>
+
+    <!-- Scream bubble -->
+    <div class="scream-bubble" id="screamBubble">😱</div>
+
+    <!-- Main content -->
+    <div class="all-stuff" id="allStuff">
       <div class="title">
-        <h1>Do you love me? 💕</h1>
+        <h1 id="mainTitle">Do you love me? 💕</h1>
       </div>
       <p class="subtitle" id="subtitle">Be honest… 👀</p>
+
+      <!-- Attempt counter -->
+      <div class="attempt-counter" id="attemptCounter" style="display: none">
+        You've tried clicking No <span id="attemptNum">0</span> times.
+        <span id="attemptComment">Interesting choice.</span>
+      </div>
+
       <div class="outer-container">
-        <div class="container" id="btn-container">
+        <div class="container" id="btnContainer">
           <button class="yes btn" id="yesBtn">Yes 💖</button>
           <button class="no btn" id="noBtn">No</button>
         </div>
       </div>
+
       <p class="no-attempts" id="noAttempts"></p>
+
+      <!-- Fake loading bar (shows when near No) -->
+      <div class="fake-loader" id="fakeLoader">
+        <p id="loaderText">Processing your terrible decision…</p>
+        <div class="loader-bar">
+          <div class="loader-fill" id="loaderFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intervention modal (shows at 5 attempts) -->
+    <div class="modal-overlay" id="interventionModal">
+      <div class="modal-box">
+        <div class="modal-emoji">🫂</div>
+        <h2>Intervention Time</h2>
+        <p>A concerned friend wants to know why you're like this.</p>
+        <button class="modal-close" id="modalClose">
+          I'll think about it… 😔
+        </button>
+      </div>
+    </div>
+
+    <!-- Restraining order modal (10 attempts) -->
+    <div class="modal-overlay" id="restrainingModal">
+      <div class="modal-box restraining">
+        <div class="modal-emoji">📄</div>
+        <h2>Legal Notice</h2>
+        <p>
+          The <strong>No Button</strong> has officially filed a restraining
+          order against you.<br /><br />You must stay
+          <strong>500px away</strong> at all times.
+        </p>
+        <button class="modal-close" id="restrainingClose">
+          I understand 😭
+        </button>
+      </div>
     </div>
 
     <!-- Celebration overlay -->
     <div class="celebration" id="celebration">
       <div class="celebration-content">
-        <div class="celebration-emoji">💞</div>
-        <h2>I KNEW IT!!! 🥳</h2>
-        <p>You're officially the best person ever!!</p>
-        <div class="celebration-hearts">💖💗💓💝💘💕</div>
+        <div class="celebration-emoji" id="celebEmoji">💞</div>
+        <h2 id="celebTitle">I KNEW IT!!! 🥳</h2>
+        <p id="celebMsg">You're officially the best person ever!!</p>
+        <div class="celebration-hearts">💖 💗 💓 💝 💘 💕</div>
       </div>
     </div>
 
+    <!-- Confetti -->
     <div id="confetti-container"></div>
 
-    <script src="index.js" charset="UTF-8"></script>
+    <!-- Fireworks canvas -->
+    <canvas id="fireworksCanvas"></canvas>
+
+    <script src="index.js"></script>
+
+    <footer>
+      <p>
+        Made with 💖 by <span class="footer-name">Mehedi Hossen Fahim</span>
+      </p>
+    </footer>
   </body>
 </html>
